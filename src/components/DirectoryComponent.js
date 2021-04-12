@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
-import CampsiteInfo from './CampsiteInfoComponent';
+
 
 class Directory extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedCampsite: null
-       
-        };
-    }
-
-    onCampsiteSelect(campsite) {
-        this.setState({selectedCampsite: campsite})
-    }
-
-   
-
     render() {
         const directory = this.props.campsites.map(campsite => {
             return (
