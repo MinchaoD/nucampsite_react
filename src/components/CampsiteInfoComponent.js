@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem  } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 
 function RenderCampsite(campsite){
         
@@ -8,7 +10,7 @@ function RenderCampsite(campsite){
                 <Card>
                     <CardImg top src={campsite.image} alt={campsite.name} />
                     <CardBody>
-                        <CardTitle>{campsite.name}</CardTitle>
+                  
                         <CardText>{campsite.description}</CardText>
                         
                     </CardBody>
@@ -37,7 +39,18 @@ function RenderComments(comments){
 function CampsiteInfo(props){
         if (props.campsite){
             return (
+               
                 <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
+                            </Breadcrumb>
+                            <h2>{props.campsite.name}</h2>
+                            <hr />
+                        </div>
+                    </div>
                     <div className = "row">
                         {RenderCampsite(props.campsite)}
                         {RenderComments(props.comments)}
