@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem,Modal, ModalHeader, ModalBody, Label, Col } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Button, Breadcrumb, BreadcrumbItem,Modal, ModalHeader, ModalBody, Label, Col } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
@@ -29,18 +29,13 @@ class CommentForm extends Component {
         super(props);
        
         this.state = {
-            rating: '1',
-            author: '',
-            text: '',
-            touched: {
-                author: false,
-                text: false,
-            },
             isModalOpen: false
         };
 
         this.toggleModal = this.toggleModal.bind(this);
+        this.toggleSubmit = this.handleSubmit.bind(this);
     }
+
     toggleModal() {
         this.setState({
             isModalOpen: !this.state.isModalOpen
@@ -56,7 +51,7 @@ class CommentForm extends Component {
     render() {
         return (
             <div>
-                <button outline onClick={this.toggleModal}><i className="fa fa-pencil fa-lg" /> Submit Comment </button>
+                <Button outline onClick={this.toggleModal}><i className="fa fa-pencil fa-lg" /> Submit Comment </Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
@@ -64,7 +59,7 @@ class CommentForm extends Component {
                             <div className="form-group">
                                 <Label htmlFor="rating" md={12}>Rating</Label>
                                 <Col md={12}>
-                                    <Control.select model=".rating" id="rating" name="rating"
+                                    <Control.select defaultValue= {1} model=".rating" id="rating" name="rating"
                                         className="form-control">
                                         <option>1</option>
                                         <option>2</option>
@@ -108,7 +103,7 @@ class CommentForm extends Component {
                             </div>
                             <div className="form-group">
                                 <Col md={{size: 10, offset: 0}}>
-                                    <button className= "btn-primary" type="submit"> Submit </button>
+                                    <Button color="primary" type="submit"> Submit </Button>
                                 </Col>
                             </div>
                         </LocalForm>
