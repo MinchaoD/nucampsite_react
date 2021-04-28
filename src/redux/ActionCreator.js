@@ -2,15 +2,6 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl'
 
 
-export const addComment = (campsiteId, rating, author, text) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: {
-        campsiteId: campsiteId,
-        rating: rating,
-        author: author,
-        text: text
-    }
-});
 
 export const fetchCampsites = () => dispatch => {
 
@@ -78,10 +69,56 @@ export const commentsFailed = errMess => ({
     payload: errMess
 });
 
+//this is to add all existing comments
 export const addComments = comments => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
+
+//this is to add a new comment
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
+
+//this is to not just add a new comment, but also post it, meaning the new comment will be staying on the comment page even after refreshing the webpage. The new comment will also be added to json server db.json file.
+export const postComment = (campsiteId, rating, author, text) => dispatch => {
+    
+    const newComment = {
+        campsiteId: campsiteId,
+        rating: rating,
+        author: author,
+        text: text
+    };
+    newComment.date = new Date().toISOString();
+
+    return fetch(baseUrl + 'comments', {
+            method: "POST",
+            body: JSON.stringify(newComment),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(response => dispatch(addComment(response)))
+        .catch(error => {
+            console.log('post comment', error.message);
+            alert('Your comment could not be posted\nError: ' + error.message);
+        });
+};
+
+
 
 export const fetchPromotions = () => dispatch => {
     dispatch(promotionsLoading());
