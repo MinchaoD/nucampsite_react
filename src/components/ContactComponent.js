@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 import { Breadcrumb, BreadcrumbItem,  Button, Label, Col, Row  } from 'reactstrap';
 import { Control, Form, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { bounce } from 'react-animations';
+import styled, {keyframes} from 'styled-components';
+
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
 const isNumber = val => !isNaN(+val);
 const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`;
 
 
 class Contact extends Component {
@@ -45,6 +49,7 @@ class Contact extends Component {
 
     render(){
         
+        
         return (
             <div className="container">
                 <div className="row">
@@ -74,7 +79,7 @@ class Contact extends Component {
                 </div>
                 <div className="row row-content">
                     <div className="col-12">
-                        <h2>Send us your Feedback</h2>
+                        <Bounce><h2>Send us your Feedback</h2></Bounce>
                         <hr />
                     </div>
                     <div className="col-md-10">
