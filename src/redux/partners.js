@@ -1,8 +1,30 @@
-import { PARTNERS } from '../shared/partners';
+// import { PARTNERS } from '../shared/partners';
 
-export const Partners = (state = PARTNERS, action) => {
+// export const Partners = (state = PARTNERS, action) => {
+//     switch (action.type) {
+//         default: 
+//            return state;
+// }
+// };
+
+// Change from above get the data from shared.partners to get the data from local mockup server, as below:
+
+
+import * as ActionTypes from './ActionTypes';
+
+export const Partners = (state = { isLoading: true,
+    errMess: null, partners: [] }, action) => {
     switch (action.type) {
-        default: 
-           return state;
-}
+        case ActionTypes.ADD_PARTNERS:
+            return {...state, isLoading: false, errMess: null, partners: action.payload};
+
+        case ActionTypes.PARTNERS_LOADING:
+            return {...state, isLoading: true, errMess: null, partners: []}
+
+        case ActionTypes.PARTNERS_FAILED:
+            return {...state, isLoading: false, errMess: action.payload};
+
+        default:
+            return state;
+    }
 };

@@ -11,7 +11,7 @@ const maxLength = len => val => !val || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
 const isNumber = val => !isNaN(+val);
 const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`;
+const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} 1`;
 
 
 class Contact extends Component {
