@@ -7,7 +7,7 @@ export const Campsites = (state = {
 }, action) => {
 switch (action.type) {
     case ActionTypes.ADD_CAMPSITES:
-        return {...state, isLoading: false, errMess: null, campsites: action.payload};
+        return {...state, isLoading: false, errMess: null, campsites: action.payload}; //here action.payload gets the action from ActionCreator.js line 29
     case ActionTypes.CAMPSITES_LOADING:
         return {...state, isLoading: true, errMess: null, campsites: []};
     case ActionTypes.CAMPSITES_FAILED:

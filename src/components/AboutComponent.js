@@ -3,7 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import { Fade, Stagger } from 'react-animation-components';
 
 function RenderPartner({partner}){
     if(partner){
@@ -126,7 +126,7 @@ function About(props) {
                         <h3>Community Partners</h3>
                     </div>
                     
-                    <PartnerList partners={props.partners} />
+                        <PartnerList partners={props.partners} />
                     
                 </div>
             </div>

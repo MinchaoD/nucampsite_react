@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl'
 
 
-
+//below action creator fetchCampsites is to return a function:
 export const fetchCampsites = () => dispatch => {
 
     dispatch(campsitesLoading());
@@ -25,10 +25,13 @@ export const fetchCampsites = () => dispatch => {
             }
         )
         .then(response => response.json())
+        //pass the above .then response to the below .then
         .then(campsites => dispatch(addCampsites(campsites)))
+        //.catch is to catch all the errors happened above. 
         .catch(error => dispatch(campsitesFailed(error.message)));    
 };
 
+// this below action reactor returns an object:
 export const campsitesLoading = () => ({
     type: ActionTypes.CAMPSITES_LOADING
 });
@@ -119,7 +122,7 @@ export const postComment = (campsiteId, rating, author, text) => dispatch => {
         });
 };
 
-export const postFeedback = (feedback) => {
+export const postFeedback = (feedback) => dispatch => {
     
 
     return fetch(baseUrl + 'feedback', {
@@ -130,27 +133,12 @@ export const postFeedback = (feedback) => {
         }
     })
     .then(response => {
-            if (response.ok) {
-                
-                return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
-                throw error;
-            }
-        },
-        error => { throw error; }
-    )
-    .then(response => response.json())
-   
-    .then(feedback => alert("Thank you for your feedback!" (feedback) ))
-    .catch(error => {
-        console.log('post feedback', error.message);
-        alert('Your feedback could not be posted\nError: ' + error.message);
-    });
-
-
-}
+        if (response.ok) {
+            return alert(`Thank you for feedback! ${JSON.stringify(feedback)}`);
+        } 
+    },
+)
+};
 
 
 export const fetchPromotions = () => dispatch => {
