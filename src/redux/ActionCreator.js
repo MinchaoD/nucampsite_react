@@ -73,20 +73,20 @@ export const commentsFailed = errMess => ({
 });
 
 //this is to add all existing comments
-export const addComments = comments => ({
+export const addComments = comments => ({  //this is action creator
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
 
 //this is to add a new comment
-export const addComment = comment => ({
+export const addComment = comment => ({   // this is an action creator
     type: ActionTypes.ADD_COMMENT,
     payload: comment
 });
 
 //this is to not just add a new comment, but also post it, meaning the new comment will be staying on the comment page even after refreshing the webpage. The new comment will also be added to json server db.json file.
-export const postComment = (campsiteId, rating, author, text) => dispatch => {
-    
+export const postComment = (campsiteId, rating, author, text) => dispatch => {   //the maincomponent last code connect give this code the ability to dispatch these 4 data, the dispatch here can be anyname, it is to give the ability to pass the data
+    // this is not action creator
     const newComment = {
         campsiteId: campsiteId,
         rating: rating,

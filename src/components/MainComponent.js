@@ -14,7 +14,15 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 const mapDispatchToProps = {
-    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),  //this is passing these 4 data from campsiteInfocomponent to props actioncreator.js
+    // the above line of code can be written as as long as they are the same, the right and left side are the same. So except the feedbackForm: 
+    // postComment,
+    // fetchCampsites,
+    
+    //fetchComments,
+    // fetchPromotions,
+    // fetchPartners,
+    // postFeedback
     fetchCampsites: () => (fetchCampsites()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
@@ -25,7 +33,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites,
+        campsites: state.campsites,    //state.campsite the campsite comes from the configureStore.js the reducer 
         comments: state.comments,
         partners: state.partners,
         promotions: state.promotions
@@ -95,4 +103,6 @@ class Main extends Component {
     };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));  //connect the mapStateToProps to the store, and return the props to Main
+// mapStateToProps is to read the data, can not be missed, if missed, use null, like connect(null, mapDispatchToprops)
+// if miss the mapDispatchToProp is ok, just write connect(mapStateToProps)
