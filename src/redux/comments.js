@@ -16,6 +16,7 @@ export const Comments = (state = { errMess: null, comments: []}, action) => {  /
             //here concat can be replaced by push, if use push, it will be the undefined, because it is to add a comment, but won't modify the original state and return a new array. There is time we might want to use push but
             // not concat, when we want to add a comment but not to update the original state and return a new object, then we use push, it will return the same original state.
         //check all the above these types if has changes, if no change, then just return the same state, and will just do nothing. These match the ones in configureStore.js
+        // the 2nd parameter comments: state.comments..... is the change we make to the ...state
         default:
             return state;
     }
