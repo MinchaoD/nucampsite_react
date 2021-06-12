@@ -20,7 +20,9 @@ export const ConfigureStore = () => {
                 feedbackForm: InitialFeedback
             })
         }),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, logger)  // thunk is to give the ability to dispatch from a 
+        // different location. If there is no thunk, we can only dispatch in the same file, but not from 
+        // a different location, such as from redux folder
     );
 
     return store;

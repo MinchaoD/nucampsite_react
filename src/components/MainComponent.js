@@ -106,3 +106,4 @@ class Main extends Component {
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));  //connect the mapStateToProps to the store, and return the props to Main
 // mapStateToProps is to read the data, can not be missed, if missed, use null, like connect(null, mapDispatchToprops)
 // if miss the mapDispatchToProp is ok, just write connect(mapStateToProps)
+//mapstatetoprops is to read the data, mapdispatchtoprops is to change/rewrite the data

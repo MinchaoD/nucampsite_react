@@ -122,7 +122,7 @@ export const postComment = (campsiteId, rating, author, text) => dispatch => {  
         });
 };
 
-export const postFeedback = (feedback) => dispatch => {
+export const postFeedback = (feedback) => dispatch => {  // or the dispatch here can be just ()
     
 
     return fetch(baseUrl + 'feedback', {
