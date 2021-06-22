@@ -8,23 +8,32 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import Home from './HomeComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreator';
+import { postComment, postFeedback, fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 const mapDispatchToProps = {
-    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),  //this is passing these 4 data from campsiteInfocomponent to props actioncreator.js
+    // the above line of code can be written as as long as they are the same, the right and left side are the same. So except the feedbackForm: 
+    // postComment,
+    // fetchCampsites,
+    
+    //fetchComments,
+    // fetchPromotions,
+    // fetchPartners,
+    // postFeedback
     fetchCampsites: () => (fetchCampsites()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
-    fetchPartners: () => (fetchPartners())
+    fetchPartners: () => (fetchPartners()),
+    postFeedback: (feedback) => (postFeedback(feedback)),
 };
 
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites,
+        campsites: state.campsites,    //state.campsite the campsite comes from the configureStore.js the reducer 
         comments: state.comments,
         partners: state.partners,
         promotions: state.promotions
@@ -82,7 +91,7 @@ class Main extends Component {
                             <Route path='/home' component={HomePage} />
                             <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                             <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                            <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                            <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback = {this.props.postFeedback}/>} />
                             <Route exact path='/aboutus' render={() => <About partners={this.props.partners} />}  />
                             <Redirect to='/home' />
                         </Switch>
@@ -94,4 +103,6 @@ class Main extends Component {
     };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));  //connect the mapStateToProps to the store, and return the props to Main
+// mapStateToProps is to read the data, can not be missed, if missed, use null, like connect(null, mapDispatchToprops)
+// if miss the mapDispatchToProp is ok, just write connect(mapStateToProps)

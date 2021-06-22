@@ -19,16 +19,31 @@ function RenderCard({item, isLoading, errMess}) {
             }}>
             <Card>
                 <CardImg src={baseUrl + item.image} alt={item.name} />
-                <CardBody>
-                    <CardTitle>{item.name}</CardTitle>
-                    <CardText>{item.description}</CardText>
-                </CardBody>
+                    <CardBody>
+                        <CardTitle>{item.name}</CardTitle>
+                        <CardText>{item.description}</CardText>
+                    </CardBody>
             </Card>
          </FadeTransform>
     );
 }
 
+// below shows another way doing the same thing to postComment, by using hooks(useSelector/useState). 
+//When we use hooks, we don't need mapstatetoprops or mapdispatchtoprops and we don't need props after Home
+
+
+//import React, {useEffect} from 'react'
+// function Home() {
+//     const (campsite, promotions, partners }= useSelector((state) => state))
+//     const dispatch= useDispatch()
+
+//     useEffect(()=>{
+//         dispatch(postComment(1,5,"redux","isCool"))},[])
+
+
+
 function Home(props) {
+   
     return (
         <div className="container">
             <div className="row">
@@ -36,6 +51,7 @@ function Home(props) {
                     <RenderCard
                             item={props.campsite}
                             isLoading={props.campsitesLoading}
+                            //isLoading={campsites.isLoading}  this is also when we use hooks instead
                             errMess={props.campsitesErrMess}
                         />
                 </div>

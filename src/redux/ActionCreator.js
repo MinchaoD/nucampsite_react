@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl'
 
 
-
+//below action creator fetchCampsites is to return a function:
 export const fetchCampsites = () => dispatch => {
 
     dispatch(campsitesLoading());
@@ -25,10 +25,13 @@ export const fetchCampsites = () => dispatch => {
             }
         )
         .then(response => response.json())
+        //pass the above .then response to the below .then
         .then(campsites => dispatch(addCampsites(campsites)))
+        //.catch is to catch all the errors happened above. 
         .catch(error => dispatch(campsitesFailed(error.message)));    
 };
 
+// this below action reactor returns an object:
 export const campsitesLoading = () => ({
     type: ActionTypes.CAMPSITES_LOADING
 });
@@ -70,20 +73,20 @@ export const commentsFailed = errMess => ({
 });
 
 //this is to add all existing comments
-export const addComments = comments => ({
+export const addComments = comments => ({  //this is action creator
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
 
 //this is to add a new comment
-export const addComment = comment => ({
+export const addComment = comment => ({   // this is an action creator
     type: ActionTypes.ADD_COMMENT,
     payload: comment
 });
 
 //this is to not just add a new comment, but also post it, meaning the new comment will be staying on the comment page even after refreshing the webpage. The new comment will also be added to json server db.json file.
-export const postComment = (campsiteId, rating, author, text) => dispatch => {
-    
+export const postComment = (campsiteId, rating, author, text) => dispatch => {   //the maincomponent last code connect give this code the ability to dispatch these 4 data, the dispatch here can be anyname, it is to give the ability to pass the data
+    // this is not action creator
     const newComment = {
         campsiteId: campsiteId,
         rating: rating,
@@ -119,6 +122,23 @@ export const postComment = (campsiteId, rating, author, text) => dispatch => {
         });
 };
 
+export const postFeedback = (feedback) => dispatch => {
+    
+
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(feedback),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return alert(`Thank you for feedback! ${JSON.stringify(feedback)}`);
+        } 
+    },
+)
+};
 
 
 export const fetchPromotions = () => dispatch => {
@@ -196,3 +216,4 @@ export const addPartners = partners => ({
     type: ActionTypes.ADD_PARTNERS,
     payload: partners
 });
+
